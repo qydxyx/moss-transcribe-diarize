@@ -59,7 +59,7 @@ python3 scripts/format_transcript.py raw.txt transcript.md \
 
 Pass `--speaker S01=Name` only when the user or the recording identifies that speaker. Say the model did not recognize the name.
 
-Put the Markdown back in `to-transcribe`, named after the audio. Keep the raw txt.
+Put the Markdown in `/content/drive/MyDrive/MOSS-Transcribe-Diarize/transcripts`, named after the audio. Put the raw txt in that same folder.
 
 ## Stop
 
