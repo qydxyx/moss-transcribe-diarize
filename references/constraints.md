@@ -7,6 +7,7 @@
 - Drive weights: `/content/drive/MyDrive/MOSS-Transcribe-Diarize` (https://drive.google.com/drive/folders/1dWi-iifer8XVDEilmjjUyI-dfNO5crZk)
 - Drop folder: `/content/drive/MyDrive/MOSS-Transcribe-Diarize/to-transcribe` (https://drive.google.com/drive/folders/1isoq9Acb1DAv42nEhXZ_QeV9hMkSzCIH)
 - Markdown output: `/content/drive/MyDrive/MOSS-Transcribe-Diarize/transcripts` (https://drive.google.com/drive/folders/1xBYHfh-k3uKFMGof4gCN0UkfjNdhk2Ix)
+- That Markdown is the checklist. Same stem as the audio means done. Missing Markdown means still to do.
 - Use `build_transcription_messages` and `generate_transcription`.
 - Attention stays `sdpa`. If the loaded config says anything else, stop.
 - Context is 131072. A single pass stops when that fills. Treat about 90 minutes as the hard stop. Do not generate when fewer than 1024 new tokens remain.
