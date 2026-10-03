@@ -10,7 +10,11 @@ PAT = re.compile(r"\[(\d+\.\d+)\]\[(S\d+)\](.*?)\[(\d+\.\d+)\]")
 
 
 def clock(seconds: str) -> str:
-    minutes, secs = divmod(int(float(seconds)), 60)
+    total = int(float(seconds))
+    minutes, secs = divmod(total, 60)
+    hours, minutes = divmod(minutes, 60)
+    if hours:
+        return f"{hours}:{minutes:02d}:{secs:02d}"
     return f"{minutes:02d}:{secs:02d}"
 
 

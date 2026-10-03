@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""Load MOSS-Transcribe-Diarize on a Colab GPU and transcribe one audio file.
-
-Edit the paths below, or pass them as the first lines of a small wrapper.
-Defaults match the Drive layout from the first successful run.
-"""
+"""Load MOSS-Transcribe-Diarize on a Colab GPU and transcribe one audio file."""
 
 import json
 import os
@@ -20,8 +16,6 @@ AUDIO_DIR = os.environ.get(
     "/content/drive/MyDrive/MOSS-Transcribe-Diarize/to-transcribe",
 )
 AUDIO_SRC = os.environ.get("MOSS_AUDIO", "")
-EXPECTED_SF = int(os.environ.get("MOSS_EXPECTED_SF", "1817113576"))
-EXPECTED_AUDIO = int(os.environ.get("MOSS_EXPECTED_AUDIO", "0"))
 AUDIO_EXTS = {".m4a", ".mp3", ".wav", ".flac", ".aac", ".ogg", ".mp4", ".webm"}
 SRC = os.environ.get("MOSS_SRC", "/content/MOSS-Transcribe-Diarize-src")
 AUDIO = "/content/moss-input-audio"
@@ -64,14 +58,8 @@ def main():
         log(f"drive_mounted {os.path.isdir('/content/drive/MyDrive')}")
         if not os.path.isfile(sf):
             raise FileNotFoundError(sf)
-        sf_size = os.path.getsize(sf)
-        log(f"sf_size {sf_size}")
-        if EXPECTED_SF and sf_size != EXPECTED_SF:
-            raise RuntimeError(f"safetensors size {sf_size} != {EXPECTED_SF}")
-        audio_size = os.path.getsize(audio_src)
-        log(f"audio_size {audio_size}")
-        if EXPECTED_AUDIO and audio_size != EXPECTED_AUDIO:
-            raise RuntimeError(f"audio size {audio_size} != {EXPECTED_AUDIO}")
+        log(f"sf_size {os.path.getsize(sf)}")
+        log(f"audio_size {os.path.getsize(audio_src)}")
         shutil.copy2(audio_src, AUDIO + os.path.splitext(audio_src)[1].lower())
         audio_local = AUDIO + os.path.splitext(audio_src)[1].lower()
         log(f"copied_audio {os.path.getsize(audio_local)}")
@@ -115,7 +103,7 @@ def main():
         inputs = prepare_inputs(processor, messages, max_length=131072, device=device)
         input_length = int(inputs["attention_mask"][0].sum().item())
         prep_s = time.perf_counter() - t_prep
-        budget = min(65536, 131072 - input_length - 16)
+        budget = 131072 - input_length - 16
         log(f"input_length {input_length}")
         log(f"max_new_tokens {budget}")
         log(f"prep_s {prep_s:.3f}")
